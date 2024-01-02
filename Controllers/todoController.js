@@ -1,19 +1,61 @@
-const { URLModel } = require("../Model/todo.model");
+const { TodoModel } = require("../Model/todo.model");
 
-const shortid = require("shortid");
 
-const HandleUrl = async (req, res) => {
-  const body = req.body;
 
-  if (!body.url) return res.status(400).json({ error: "URL is required" });
+const CreateTodo = async (req, res) => {
 
-  const shortID = shortid();
+  const payload = req.body;
 
-  await URLModel.create({
-    shortId: shortID,
-    redirectURL: body.url,
-    visitHistory: [],
-  });
-  return res.json({ id: shortID });
+  try {
+    const newTodo = new TodoModel(payload);
+    await newTodo.save();
+    res.status(200).json({success: true, msg: "New Todo Added Sucessfully" });
+  } catch (err) {
+    res.status(404).json({success: false, msg: "Not able to add todo list" });
+  }
+
 };
-module.exports = { HandleUrl };
+
+const GetTodo = async (req, res) => {
+
+  try {
+    const Todo = await TodoModel.find({});
+    res.status(200).json(Todo);
+  } catch (err) {
+    res.status(404).json({ success: false,msg: "Not able to load todo list" });
+  }
+
+};
+
+const DeleteTodo = async (req, res) => {
+
+  const id = req.params.id;
+
+  try {
+    await TodoModel.findByIdAndDelete(id);
+
+    res.status(200).json({ success: true, message: "Todo Successfully Deleted" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to delete" });
+  }
+
+}
+
+
+const UpdateTodo = async (req, res) => {
+
+  const { id } = req.params;
+  const payload = req.body;
+
+  try {
+    const upadteTodo=    await TodoModel.findByIdAndUpdate({ _id: id }, payload);
+
+    res.status(200).json({success:true,message:"Successfully Updated Todo",data:upadteTodo})
+  } catch (error) {
+    res.status(500).json({success:false,message:"Failed to update"})
+  }
+
+
+}
+
+module.exports = { CreateTodo ,GetTodo, DeleteTodo, UpdateTodo};
