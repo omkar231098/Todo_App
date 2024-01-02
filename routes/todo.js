@@ -1,18 +1,23 @@
+
 const express = require("express");
 
+
 const TodoRouter = express.Router();
+
+
 const { authenticate } = require("../auth/verifyToken");
 
-const { CreateTodo } = require("../Controllers/todoController");
-const { GetTodo} = require("../Controllers/todoController");
-const { DeleteTodo } = require("../Controllers/todoController");
-const { UpdateTodo } = require("../Controllers/todoController");
+
+const { CreateTodo, GetTodo, DeleteTodo, UpdateTodo } = require("../Controllers/todoController");
+
 
 TodoRouter.use(express.json());
 
-TodoRouter.post("/",authenticate, CreateTodo);
-TodoRouter.get("/",authenticate, GetTodo );
-TodoRouter.delete("/:id", authenticate,  DeleteTodo);
-TodoRouter.patch("/:id", authenticate, UpdateTodo);
+// Define routes with associated controller methods and authentication middleware
+TodoRouter.post("/add", authenticate, CreateTodo); // Create a new Todo
+TodoRouter.get("/get", authenticate, GetTodo); // Get all Todos
+TodoRouter.delete("/:id", authenticate, DeleteTodo); // Delete a Todo by ID
+TodoRouter.patch("/:id", authenticate, UpdateTodo); // Update a Todo by ID
+
 
 module.exports = { TodoRouter };

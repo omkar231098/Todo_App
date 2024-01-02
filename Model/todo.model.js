@@ -6,8 +6,8 @@ const TodoSchema = new mongoose.Schema({
    description: { type: String },
    completed: { type: Boolean, default: false },
    createdAt: { type: Date, default: Date.now },
-   
+
 });
 
-const TodoModel = mongoose.model("Url", TodoSchema);
+const TodoModel = mongoose.model("Todo", TodoSchema);
 module.exports = { TodoModel };

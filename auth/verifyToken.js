@@ -1,48 +1,41 @@
 
-
 const jwt = require("jsonwebtoken");
 
 
+const authenticate = async (req, res, next) => {
+    // Get JWT from 'Authorization' header
+    const authToken = req.headers.authorization;
 
-const authenticate = async(req,res,next)=>{
-
-    const authToken=req.headers.authorization
-
-    if(!authToken || !authToken.startsWith("Bearer ")){
-return res.status(401).json({success:false, message:"No token ,authorization failed"})
+    // Check for valid 'Bearer ' token in header
+    if (!authToken || !authToken.startsWith("Bearer ")) {
+        // Unauthorized if no or improperly formatted token
+        return res.status(401).json({ success: false, message: "No token, authorization failed" });
     }
 
-try {
-    const token=authToken.split(" ")[1]
+    try {
+        // Extract token from 'Bearer ' prefix
+        const token = authToken.split(" ")[1];
 
-    const decoded=jwt.verify(token,process.env.NormalToken)
-    
+        // Verify JWT using provided secret key
+        const decoded = jwt.verify(token, process.env.NormalToken);
 
-    req.userId=decoded.id
+        // Attach user ID to request object
+        req.userId = decoded.id;
 
-    // req.role=decoded.role
+        // Continue to the next middleware or route handler
+        next();
+    } catch (error) {
+        // Handle different JWT verification errors
 
+        // If the token has expired
+        if (error.name === "TokenExpiredError") {
+            return res.status(401).json({ message: "Token is expired" });
+        }
 
-    next()
-} catch (error) {
-    if(error.name==="TokenExpiredError"){
-       return res.status(401).json({message:"Token is expired"})
+        // If the token is invalid for other reasons
+        return res.status(401).json({ success: false, message: "Invalid token" });
     }
-
-    return res.status(401).json({success:false,message:"Invalid token"})
-}
+};
 
 
-
-
-
-}
-
-
-
-
-module.exports={authenticate}
-
-
-
-
+module.exports = { authenticate };
