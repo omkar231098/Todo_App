@@ -10,6 +10,7 @@ This project is a simple Todo app backend with CRUD (Create, Read, Update, Delet
 - [API Routes](#api-routes)
 - [Authentication](#authentication)
 - [Error Handling](#error-handling)
+- [Deployed Link](#deployed-link)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -32,9 +33,11 @@ This project is a simple Todo app backend with CRUD (Create, Read, Update, Delet
 1. **Clone the repository:**
     ```bash
     git clone https://github.com/omkar231098/Todo_App.git
-    cd Todo_App
+   
     ```
-
+   ```bash
+   cd Todo_App
+    ```
 2. **Install dependencies:**
     ```bash
     npm install
@@ -50,7 +53,7 @@ This project is a simple Todo app backend with CRUD (Create, Read, Update, Delet
 
 4. **Run the application:**
     ```bash
-    npm start
+    npm run server
     ```
     The API server will be running at `http://localhost:8500`.
 
@@ -100,6 +103,9 @@ The API employs a detailed error handling mechanism for better user experience.
   
 - **500 Internal Server Error:**
   - Signifies an unexpected server error.
+    
+## Deployed Link
+The Todo App API is deployed at https://puce-rich-moose.cyclic.app/.
 
 ## Contributing
 
