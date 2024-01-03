@@ -76,3 +76,38 @@ This project is a simple Todo app backend with CRUD (Create, Read, Update, Delet
 
 - **User Login:**
   `POST /api/users/login`
+  
+## Authentication
+
+To access protected routes related to Todo operations, use Bearer token authentication.
+
+- Include the token in the `Authorization` header using the format:
+  ```http
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsIn...
+
+## Error Handling
+
+The API employs a detailed error handling mechanism for better user experience.
+
+- **400 Bad Request:**
+  - Indicates an invalid request or missing required parameters.
+  
+- **401 Unauthorized:**
+  - Occurs when the token is missing or invalid.
+  
+- **403 Forbidden:**
+  - Access is denied due to insufficient privileges.
+  
+- **404 Not Found:**
+  - Indicates that the requested resource is not found.
+  
+- **500 Internal Server Error:**
+  - Signifies an unexpected server error.
+
+## Contributing
+
+We welcome contributions! If you have suggestions or improvements for the error handling process, please follow the [Contributing Guidelines](CONTRIBUTING.md).
+
+## License
+
+This project is licensed under the [MIT License](LICENSE). See the [LICENSE](LICENSE) file for details.
