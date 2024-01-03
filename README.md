@@ -31,8 +31,8 @@ This project is a simple Todo app backend with CRUD (Create, Read, Update, Delet
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/todo-app-api.git
-    cd todo-app-api
+    git clone https://github.com/omkar231098/Todo_App.git
+    cd Todo_App
     ```
 
 2. **Install dependencies:**
@@ -43,39 +43,36 @@ This project is a simple Todo app backend with CRUD (Create, Read, Update, Delet
 3. **Set up environment variables:**
     Create a `.env` file in the root directory and add the following:
     ```env
-    PORT=3000
-    MONGODB_URI=mongodb://localhost:27017/todoapp
-    JWT_SECRET=mysecretkey
+    PORT=8500
+    mongoURL=mongodb://localhost:27017/todoapp
+    NormalToken=mysecretkey
     ```
 
 4. **Run the application:**
     ```bash
     npm start
     ```
-    The API server will be running at `http://localhost:3000`.
+    The API server will be running at `http://localhost:8500`.
 
 ## API Routes
 
 - **Create Task:**
-  `POST /api/tasks`
+  `POST /todo/add`
 
 - **Get All Tasks:**
-  `GET /api/tasks`
-
-- **Get Task by ID:**
-  `GET /api/tasks/:id`
+  `GET /todo/get`
 
 - **Update Task by ID:**
-  `PUT /api/tasks/:id`
+  `PUT /todo/:id`
 
 - **Delete Task by ID:**
-  `DELETE /api/tasks/:id`
+  `DELETE /todo/:id`
 
 - **User Registration:**
-  `POST /api/users/register`
+  `POST /auth/register`
 
 - **User Login:**
-  `POST /api/users/login`
+  `POST /auth/login`
   
 ## Authentication
 
