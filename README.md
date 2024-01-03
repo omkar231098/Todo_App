@@ -1,4 +1,4 @@
-# Todo App API
+# Todo App
 
 This project is a simple Todo app backend with CRUD (Create, Read, Update, Delete) functionality for tasks. Additionally, it includes user registration and login APIs for secure access.
 
@@ -32,5 +32,5 @@ This project is a simple Todo app backend with CRUD (Create, Read, Update, Delet
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/todo-app-api.git
-   cd todo-app-api
+   git clone https://github.com/omkar231098/Todo_App.git
+   cd Todo_App
