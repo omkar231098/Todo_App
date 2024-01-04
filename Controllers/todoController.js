@@ -1,18 +1,33 @@
+const getLogger = require('../Logger/logger'); // Update the path based on your actual file structure
+const logger = getLogger('auth'); // Provide the route name, e.g., 'auth' for authentication routes
+const { TodoModel } = require('../Model/todo.model');
+const { UserModel } = require('../Model/user.model');
 
-const { TodoModel } = require("../Model/todo.model");
+
 
 // Create a new Todo
 const CreateTodo = async (req, res) => {
-  const payload = req.body;
+  const { title, description } = req.body;
+  const userID = req.userId;
 
   try {
-    // Create and save a new Todo
-    const newTodo = new TodoModel(payload);
+    // Create and save a new Todo associated with the user
+    const newTodo = new TodoModel({
+      title,
+      description,
+      user: userID,
+    });
+
     await newTodo.save();
-    res.status(200).json({ success: true, msg: "New Todo Added Successfully" });
+
+    // Update the user's todos array with the new todo
+    await UserModel.findByIdAndUpdate(userID, { $push: { todos: newTodo._id } });
+
+    res.status(200).json({ success: true, message: 'Todo created successfully.' });
   } catch (err) {
     // Handle error if unable to add a new Todo
-    res.status(404).json({ success: false, msg: "Not able to add todo list" });
+    logger.error(`Failed to add new Todo: ${err}`);
+    res.status(404).json({ success: false, message: 'Failed to add new Todo.' });
   }
 };
 
@@ -20,11 +35,12 @@ const CreateTodo = async (req, res) => {
 const GetTodo = async (req, res) => {
   try {
     // Retrieve all Todos
-    const Todo = await TodoModel.find({});
-    res.status(200).json(Todo);
+    const todos = await TodoModel.find({});
+    res.status(200).json(todos);
   } catch (err) {
-    // Handle error if unable to load todo list
-    res.status(404).json({ success: false, msg: "Not able to load todo list" });
+    // Handle error if unable to load Todo list
+    logger.error(`Failed to load Todo list: ${err}`);
+    res.status(404).json({ success: false, message: 'Failed to load Todo list.' });
   }
 };
 
@@ -35,10 +51,11 @@ const DeleteTodo = async (req, res) => {
   try {
     // Delete Todo by ID
     await TodoModel.findByIdAndDelete(id);
-    res.status(200).json({ success: true, message: "Todo Successfully Deleted" });
+    res.status(200).json({ success: true, message: 'Todo deleted successfully.' });
   } catch (error) {
     // Handle error if failed to delete
-    res.status(500).json({ success: false, message: "Failed to delete" });
+    logger.error(`Failed to delete Todo: ${error}`);
+    res.status(500).json({ success: false, message: 'Failed to delete Todo.' });
   }
 };
 
@@ -50,12 +67,12 @@ const UpdateTodo = async (req, res) => {
   try {
     // Update Todo by ID
     const updatedTodo = await TodoModel.findByIdAndUpdate({ _id: id }, payload);
-    res.status(200).json({ success: true, message: "Successfully Updated Todo" });
+    res.status(200).json({ success: true, message: 'Todo updated successfully.' });
   } catch (error) {
     // Handle error if failed to update
-    res.status(500).json({ success: false, message: "Failed to update" });
+    logger.error(`Failed to update Todo: ${error}`);
+    res.status(500).json({ success: false, message: 'Failed to update Todo.' });
   }
 };
-
 
 module.exports = { CreateTodo, GetTodo, DeleteTodo, UpdateTodo };

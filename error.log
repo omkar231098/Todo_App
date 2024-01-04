@@ -1,0 +1,4 @@
+2024-01-04T06:29:20.263Z [ERROR] [auth] User not found for login attempt: undefined
+2024-01-04T06:53:56.248Z [ERROR] [auth] User not found for login attempt: undefined
+2024-01-04T06:54:55.066Z [ERROR] [auth] Login failed: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+2024-01-04T06:55:54.794Z [ERROR] [auth] Login failed: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
