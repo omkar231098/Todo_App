@@ -2,3 +2,5 @@
 2024-01-04T06:53:56.248Z [ERROR] [auth] User not found for login attempt: undefined
 2024-01-04T06:54:55.066Z [ERROR] [auth] Login failed: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
 2024-01-04T06:55:54.794Z [ERROR] [auth] Login failed: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+2024-01-04T07:20:20.942Z [ERROR] [auth] Failed to add new Todo: ValidationError: description: Path `description` is required.
+2024-01-04T07:31:13.653Z [ERROR] [auth] Failed to add new Todo: ValidationError: description: Path `description` is required.
